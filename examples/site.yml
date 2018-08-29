@@ -1,0 +1,21 @@
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+
+    # clone the jfc repo to your roles directory first
+    - import_role: name=jfc
+
+    # this fetches an ansible pullrequest and executes a module within
+    - jfc_module:
+        src: https://github.com/ansible/ansible/pull/27059
+        name: lightbulb
+        args:
+            data: hello world2
+
+    # WIP ... run a role on demand
+    - jfc_role:
+        src: https://github.com/f500/ansible-dumpall
+        action: include
+        args:
+            dumpall_host_destination: /tmp/adump
